@@ -58,7 +58,7 @@ export const ProductCard = forwardRef(function ProductCard(
                 {props.product.title}
               </CardTitle>
               <h4 className="text-xl xl:text-3xl font-semibold py-4 xl:py-6">
-                {`$${props.product.price}/month`}
+                {`$${props.product.price}`}
               </h4>
             </div>
             <Image
@@ -86,7 +86,7 @@ export const ProductCard = forwardRef(function ProductCard(
               <AvatarImage src="/placeholder-user.jpg" alt="@username" />
               <AvatarFallback>{props.product.createdBy.name[0]}</AvatarFallback>
             </Avatar>
-            <span className="text-sm">{`Hosted by ${props.product.createdBy.name}`}</span>
+            <span className="text-sm">{`Sold by ${props.product.createdBy.name}`}</span>
           </div>
         </CardFooter>
       </Card>
