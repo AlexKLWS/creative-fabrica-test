@@ -37,7 +37,7 @@ function Content() {
     () =>
       void setInterval(
         () => set((i) => ({ ...random(i), delay: i * 60 })),
-        5000
+        7000
       ),
     []
   );
@@ -56,18 +56,11 @@ function Content() {
 const DynamicBackground = () => {
   return (
     <div className="h-full w-full absolute pointer-events-none -z-10">
-      <Canvas flat shadows camera={{ position: [0, 0, 100], fov: 100 }}>
+      <Canvas flat camera={{ position: [0, 0, 100], fov: 100 }}>
         <ambientLight intensity={4.85} />
-        <spotLight
-          castShadow
-          intensity={0.2}
-          angle={Math.PI / 7}
-          position={[150, 150, 250]}
-          penumbra={1}
-          shadow-mapSize={2048}
-        />
         <Content />
       </Canvas>
+      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full pointer-events-none bg-slate-50/80" />
     </div>
   );
 };
