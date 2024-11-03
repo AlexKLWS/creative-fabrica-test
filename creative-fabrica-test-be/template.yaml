@@ -1,0 +1,113 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  creative-fabrica-test-be
+
+  SAM Template for creative-fabrica-test-be
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  GetProductsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: creative-fabrica-functions/
+      Handler: getProducts.lambdaHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - arm64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /products
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - getProducts.ts
+
+  PostBookmarkFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: creative-fabrica-functions/
+      Handler: postBookmark.lambdaHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - arm64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /bookmarks
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - postBookmark.ts
+
+  DeleteBookmarkFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: creative-fabrica-functions/
+      Handler: deleteBookmark.lambdaHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - arm64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /bookmarks
+            Method: delete
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - deleteBookmark.ts
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  GetProductsApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for Get Products function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/products/"
+  GetProductsFunctionArn:
+    Description: "Get Products Lambda Function ARN"
+    Value: !GetAtt GetProductsFunction.Arn
+  GetProductsFunctionRoleArn:
+    Description: "IAM Role ARN for Get Products function"
+    Value: !GetAtt GetProductsFunctionRole.Arn
+  PostBookmarkApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for Post Bookmark function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/bookmarks/"
+  PostBookmarkFunctionArn:
+    Description: "Post Bookmark Lambda Function ARN"
+    Value: !GetAtt PostBookmarkFunction.Arn
+  PostBookmarkFunctionRoleArn:
+    Description: "IAM Role ARN for Post Bookmark function"
+    Value: !GetAtt PostBookmarkFunctionRole.Arn
+  DeleteBookmarkApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for Delete Bookmark function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/bookmarks/"
+  DeleteBookmarkFunctionArn:
+    Description: "Delete Bookmark Lambda Function ARN"
+    Value: !GetAtt DeleteBookmarkFunction.Arn
+  DeleteBookmarkFunctionRoleArn:
+    Description: "IAM Role ARN for Delete Bookmark function"
+    Value: !GetAtt DeleteBookmarkFunctionRole.Arn
