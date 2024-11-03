@@ -70,7 +70,7 @@ export const handlers = [
           "Handwritten Script Fonts add a personal touch to projects, ideal for quotes, invitations, and branding.",
         price: 22,
         category: "Fonts",
-        imageUrl: "https://picsum.photos/id/105/500/450",
+        imageUrl: "https://picsum.photos/id/870/500/450",
         isBookmarked: true,
         createdBy: {
           id: 5,
