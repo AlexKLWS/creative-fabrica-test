@@ -63,7 +63,7 @@ export const ProductCard = forwardRef(function ProductCard(
             </div>
             <Image
               src={props.product.imageUrl || ""}
-              alt="Rental Property"
+              alt="Product Image"
               width={500}
               height={450}
               className="w-full h-72 object-cover rounded-md"
